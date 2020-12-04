@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="test.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="..\include\split.ixx">
+      <Filter>module</Filter>
+    </ClCompile>
+    <ClCompile Include="..\include\fibo_concept.ixx">
+      <Filter>module</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="split.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="module">
+      <UniqueIdentifier>{1c4f0e45-edb5-4fdd-92a9-9dde3c71acd0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
