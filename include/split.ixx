@@ -3,6 +3,8 @@ module;
 #include <vector>
 #include <string>
 #include <stdexcept>
+#include <iterator>
+#include <algorithm>
 
 export module Fibo.Split;
 
@@ -16,7 +18,7 @@ namespace fibo
 		// Valid nullptr for s1 and s2
 		if constexpr (std::is_pointer_v<S>) {
 			if (nullptr == str) {
-				throw std::invalid_argument("Invalid parameters");
+				throw std::invalid_argument("The input string is nullptr.");
 			}
 		}
 
@@ -47,6 +49,47 @@ namespace fibo
 			itNex = found + 1;
 		}
 		substr(sv, itNex, std::cend(sv));
+
+		return result;
+	}
+
+	export template<typename S1, typename S2> requires fibo::StringablePair<S1, S2>
+		[[nodiscard]] auto split_regex(const S1& str, const S2& token, size_t maxElement = 0)
+	{
+		// Valid nullptr for s1 and s2
+		if constexpr (std::is_pointer_v<S1>) {
+			if (nullptr == str) {
+				throw std::invalid_argument("The input string is nullptr.");
+			}
+		}
+
+		if constexpr (std::is_pointer_v<S2>) {
+			if (nullptr == token) {
+				throw std::invalid_argument("The input token is nullptr.");
+			}
+		}
+
+		using TString = tstring_t<S1>;
+		using TStringView = tstring_view_t<S1>;
+		TStringView sv{ str };
+		TStringView tokv{ token };
+
+		std::vector<TString> result;
+		if (maxElement > 0) {
+			result.reserve(maxElement);
+		}
+
+		using TRegex = tregex_t<S1>;
+		using TRegexTokenIt = fibo::tregex_token_iterator_t<TStringView>;
+
+		TRegex rex(tokv.data());
+		std::copy_if(TRegexTokenIt(std::cbegin(sv), std::cend(sv), rex, -1),
+			TRegexTokenIt(),
+			std::back_inserter(result),
+			[](auto const& it) {
+				return std::distance(it.first, it.second) > 0;
+			}
+		);
 
 		return result;
 	}
