@@ -29,29 +29,24 @@ namespace fibo
 			result.reserve(maxElement);
 		}
 
-		auto substr = [](auto const& s, auto const& first, auto const& last) {
+		auto substr = [&result](auto const& s, auto const& first, auto const& last) {
 			auto const pos = std::distance(std::cbegin(s), first);
 			auto const count = std::distance(first, last);
-			return s.substr(pos, count);
+			if (count > 0) {
+				result.emplace_back(s.substr(pos, count));
+			}
 		};
 
-		auto itBeg = std::cbegin(sv);
-		auto itEnd = std::cend(sv);
-
-		auto itNex = itBeg;
-		do {
-			auto found = std::find_if(itNex, itEnd, pre);
-			auto const pos = std::distance(itBeg, itNex);
-			auto const count = std::distance(itNex, found);
-
-			if (count > 1) {
-				result.emplace_back(sv.substr(pos, count));
+		auto itNex = std::cbegin(sv);
+		for(;;) {
+			auto found = std::find_if(itNex, std::cend(sv), pre);
+			if (found == std::cend(sv)) {
+				break;
 			}
-			if (found != itEnd) {
-				itNex = found + 1;
-			}
-
-		} while (itEnd != std::cend(sv));
+			substr(sv, itNex, found);
+			itNex = found + 1;
+		}
+		substr(sv, itNex, std::cend(sv));
 
 		return result;
 	}
