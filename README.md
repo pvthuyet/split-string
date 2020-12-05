@@ -13,7 +13,10 @@ Work well with data type:
 #include <vector>
 import Fibo.Split;
 int main() {
-  auto vec = fibo::split("aaa-bb-c", [](auto ch) { return ch == '-'; });
-  assert(vec.size() == 3);
+  auto vec1 = fibo::split("aaa-bb-c", [](auto ch) { return ch == '-'; });
+  assert(vec1.size() == 3);
+  
+  auto vec2 = fibo::split_regex("aaa-bb+c", "\\-|\\+");
+  assert(vec2.size() == 3);
 }
 ```
