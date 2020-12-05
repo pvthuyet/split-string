@@ -3,24 +3,140 @@
 
 import Fibo.Split;
 
-//TEST(TestCaseName, TestName) 
-//{
-	//auto vec = fibo::split("a b c ", [](auto sep) { return sep == ' '; });
-	//EXPECT_EQ(1, 1);
-	//EXPECT_TRUE(true);
-//}
+TEST(split, a_char_array_normal) 
+{
+	auto vec = fibo::split("aaa-bb-c", [](auto ch) { return ch == '-'; });
+	EXPECT_EQ(vec.size(), 3);
+}
 
-TEST(TestSplit, Split_error)
+TEST(split, a_char_array_end)
+{
+	auto vec = fibo::split("aaa-bb-c-", [](auto ch) { return ch == '-'; });
+	EXPECT_EQ(vec.size(), 3);
+}
+
+TEST(split, a_char_array_begin)
+{
+	auto vec = fibo::split("-aaa-bb-c", [](auto ch) { return ch == '-'; });
+	EXPECT_EQ(vec.size(), 3);
+}
+
+TEST(split, a_char_array_begin_end)
+{
+	auto vec = fibo::split("-aaa-bb-c-", [](auto ch) { return ch == '-'; });
+	EXPECT_EQ(vec.size(), 3);
+}
+
+TEST(split, a_char_array_multi)
+{
+	auto vec = fibo::split("a--b-c", [](auto ch) { return ch == '-'; });
+	EXPECT_EQ(vec.size(), 3);
+}
+
+TEST(split, a_char_array_without_sep)
+{
+	auto vec = fibo::split("a", [](auto ch) { return ch == '-'; });
+	EXPECT_EQ(vec.size(), 1);
+}
+
+TEST(split, a_char_array_empty)
+{
+	auto vec = fibo::split("", [](auto ch) { return ch == '-'; });
+	EXPECT_EQ(vec.size(), 0);
+}
+
+TEST(split, a_char_array_sep_only)
+{
+	auto vec = fibo::split("-", [](auto ch) { return ch == '-'; });
+	EXPECT_EQ(vec.size(), 0);
+}
+
+TEST(split, a_wide_char_array_normal)
+{
+	auto vec = fibo::split(L"aaa-bb-c", [](auto ch) { return ch == L'-'; });
+	EXPECT_EQ(vec.size(), 3);
+}
+
+TEST(split, a_string_normal)
+{
+	std::string s{ "aaa-bb-c" };
+	auto vec = fibo::split(s, [](auto ch) { return ch == '-'; });
+	EXPECT_EQ(vec.size(), 3);
+}
+
+TEST(split, a_wstring_normal)
+{
+	std::wstring s{ L"aaa-bb-c" };
+	auto vec = fibo::split(s, [](auto ch) { return ch == L'-'; });
+	EXPECT_EQ(vec.size(), 3);
+}
+
+TEST(split, a_const_char_pointer_normal)
+{
+	char const* s = "aaa-bb-c";
+	auto vec = fibo::split(s, [](auto ch) { return ch == '-'; });
+	EXPECT_EQ(vec.size(), 3);
+}
+
+TEST(split, a_const_wchar_pointer_normal)
+{
+	wchar_t const* s = L"aaa-bb-c";
+	auto vec = fibo::split(s, [](auto ch) { return ch == L'-'; });
+	EXPECT_EQ(vec.size(), 3);
+}
+
+TEST(split, a_char_is_null_pointer)
 {
 	try {
-		std::vector<std::string> vec;
-		hpx::string_util::split(vec,
-			"-",
-			[](auto sep) {return sep == '-'; },
-			hpx::string_util::token_compress_mode::off);
-		EXPECT_EQ(vec.size(), 2);
+		wchar_t const* s = nullptr;
+		auto vec = fibo::split(s, [](auto ch) { return ch == L'-'; });
+		EXPECT_FALSE(true);
 	}
-	catch (...) {
-		EXPECT_TRUE(false);
+	catch (std::exception const&) {
+		//std::cout << e.what();
+		EXPECT_FALSE(false);
 	}
+}
+
+TEST(split, a_char8_t_normal)
+{
+	char8_t const* s = u8"aaa-bb-c";
+	auto vec = fibo::split(s, [](auto ch) { return ch == u8'-'; });
+	EXPECT_EQ(vec.size(), 3);
+}
+
+TEST(split, a_char16_t_normal)
+{
+	char16_t const* s = u"aaa-bb-c";
+	auto vec = fibo::split(s, [](auto ch) { return ch == u'-'; });
+	EXPECT_EQ(vec.size(), 3);
+}
+
+
+TEST(split, a_char32_t_normal)
+{
+	char32_t const* s = U"aaa-bb-c";
+	auto vec = fibo::split(s, [](auto ch) { return ch == U'-'; });
+	EXPECT_EQ(vec.size(), 3);
+}
+
+TEST(split, a_u8string_normal)
+{
+	std::u8string s{ u8"aaa-bb-c" };
+	auto vec = fibo::split(s, [](auto ch) { return ch == u8'-'; });
+	EXPECT_EQ(vec.size(), 3);
+}
+
+TEST(split, a_u16string_normal)
+{
+	std::u16string s{ u"aaa-bb-c" };
+	auto vec = fibo::split(s, [](auto ch) { return ch == u'-'; });
+	EXPECT_EQ(vec.size(), 3);
+}
+
+TEST(split, a_u32string_normal)
+{
+	std::u32string s{ U"aaa-bb-c" };
+	auto vec = fibo::split(s, [](auto ch) { return ch == U'-'; });
+	EXPECT_EQ(vec.size(), 3);
 }
