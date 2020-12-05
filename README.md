@@ -6,6 +6,7 @@ Work well with data type:
 * char*, wchar_t*, char8_t*, char16_t*, char32_t*  
 * std::string, std::wstring, std::u8string, std::u16string, std::u32string  
 * std::string_view, std::wstring_view, std::u8string_view, std::u16string_view, std::u32string_view  
+Example  
 ```
 import Fibo.Split;
 int main() {
