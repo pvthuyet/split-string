@@ -34,10 +34,9 @@
   <PropertyGroup Label="UserMacros" />
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="split.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\include\fibo_concept.ixx" />
+    <ClCompile Include="..\include\concepts.ixx" />
     <ClCompile Include="..\include\split.ixx" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

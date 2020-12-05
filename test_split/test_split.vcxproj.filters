@@ -5,15 +5,14 @@
     <ClCompile Include="..\include\split.ixx">
       <Filter>module</Filter>
     </ClCompile>
-    <ClCompile Include="..\include\fibo_concept.ixx">
-      <Filter>module</Filter>
-    </ClCompile>
     <ClCompile Include="test_split.cpp" />
     <ClCompile Include="test_regex_split.cpp" />
+    <ClCompile Include="..\include\concepts.ixx">
+      <Filter>module</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="split.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="module">

@@ -6,13 +6,13 @@ module;
 #include <iterator>
 #include <algorithm>
 
-export module Fibo.Split;
+export module Saigon.Split;
 
-import Fibo.Concept;
+import Saigon.Concept;
 
-namespace fibo
+namespace saigon
 {
-	export template<class S, class F> requires(fibo::Stringable<S>&& std::predicate<F, typename fibo::tstring_t<S>::value_type>)
+	export template<class S, class F> requires(saigon::Stringable<S>&& std::predicate<F, typename saigon::tstring_t<S>::value_type>)
 		[[nodiscard]] auto split(const S& str, F&& pre, size_t maxElement = 0)
 	{
 		// Valid nullptr for s1 and s2
@@ -53,7 +53,7 @@ namespace fibo
 		return result;
 	}
 
-	export template<typename S1, typename S2> requires fibo::StringablePair<S1, S2>
+	export template<typename S1, typename S2> requires saigon::StringablePair<S1, S2>
 		[[nodiscard]] auto split_regex(const S1& str, const S2& token, size_t maxElement = 0)
 	{
 		// Valid nullptr for s1 and s2
@@ -80,7 +80,7 @@ namespace fibo
 		}
 
 		using TRegex = tregex_t<S1>;
-		using TRegexTokenIt = fibo::tregex_token_iterator_t<TStringView>;
+		using TRegexTokenIt = saigon::tregex_token_iterator_t<TStringView>;
 
 		TRegex rex(tokv.data());
 		std::copy_if(TRegexTokenIt(std::cbegin(sv), std::cend(sv), rex, -1),
