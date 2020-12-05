@@ -9,8 +9,11 @@ Work well with data type:
   
 ### Example  
 ```
+#include <cassert>
+#include <vector>
 import Fibo.Split;
 int main() {
   auto vec = fibo::split("aaa-bb-c", [](auto ch) { return ch == '-'; });
+  assert(vec.size() == 3);
 }
 ```
