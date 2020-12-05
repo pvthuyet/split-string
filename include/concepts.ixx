@@ -4,7 +4,7 @@ module;
 #include <string>
 #include <regex>
 
-export module Saigon.Concept;
+export module Saigon.Concepts;
 
 namespace saigon
 {

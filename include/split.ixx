@@ -8,7 +8,7 @@ module;
 
 export module Saigon.Split;
 
-import Saigon.Concept;
+import Saigon.Concepts;
 
 namespace saigon
 {
