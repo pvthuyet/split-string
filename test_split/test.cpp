@@ -1,5 +1,4 @@
 #include "pch.h"
-#include "split.hpp"
 
 import Fibo.Split;
 
@@ -137,6 +136,41 @@ TEST(split, a_u16string_normal)
 TEST(split, a_u32string_normal)
 {
 	std::u32string s{ U"aaa-bb-c" };
+	auto vec = fibo::split(s, [](auto ch) { return ch == U'-'; });
+	EXPECT_EQ(vec.size(), 3);
+}
+
+TEST(split, a_string_view_normal)
+{
+	std::string_view s{ "aaa-bb-c" };
+	auto vec = fibo::split(s, [](auto ch) { return ch == '-'; });
+	EXPECT_EQ(vec.size(), 3);
+}
+
+TEST(split, a_wstring_view_normal)
+{
+	std::wstring_view s{ L"aaa-bb-c" };
+	auto vec = fibo::split(s, [](auto ch) { return ch == L'-'; });
+	EXPECT_EQ(vec.size(), 3);
+}
+
+TEST(split, a_u8string_view_normal)
+{
+	std::u8string_view s{ u8"aaa-bb-c" };
+	auto vec = fibo::split(s, [](auto ch) { return ch == u8'-'; });
+	EXPECT_EQ(vec.size(), 3);
+}
+
+TEST(split, a_u16string_view_normal)
+{
+	std::u16string_view s{ u"aaa-bb-c" };
+	auto vec = fibo::split(s, [](auto ch) { return ch == u'-'; });
+	EXPECT_EQ(vec.size(), 3);
+}
+
+TEST(split, a_u32string_view_normal)
+{
+	std::u32string_view s{ U"aaa-bb-c" };
 	auto vec = fibo::split(s, [](auto ch) { return ch == U'-'; });
 	EXPECT_EQ(vec.size(), 3);
 }
